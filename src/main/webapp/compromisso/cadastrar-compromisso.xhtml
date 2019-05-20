@@ -1,0 +1,141 @@
+<ui:composition 
+	template="/compromisso/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
+    
+    <ui:define name="conteudo">
+		<div class="container">
+			<h3 class="main-title center titulo">Novo Compromisso</h3>
+			
+			<div class="row">
+		    	<h:form id="frmCompromisso">
+		    		<div class="input-field col s6">
+						<h:outputLabel for="evento" value="Evento"/>
+			            <h:inputText value="#{compromissoBean.compromisso.evento}" id="evento" />
+					</div>
+         	 		
+         	 		<!-- Data e Hora do evento -->
+					
+					<div class="input-field col s2">
+			            <h:outputLabel for="dtCompromisso" value="Dt. Compromisso"/>
+			            <h:inputText value="#{compromissoBean.compromisso.dtCompromisso}" id="dtCompromisso"  styleClass="datepicker" />
+         	 		</div>
+         	 		
+         	 		<div class="input-field col s2">
+						<h:outputLabel for="horaInicio" value="Início"/>
+			            <h:inputText value="#{compromissoBean.compromisso.hrInicio}" id="horaInicio" styleClass="timepicker" maxlength="5"/>
+					</div>
+					
+					<div class="input-field col s2">
+						<h:outputLabel for="hrFim" value="Fim"/>
+			            <h:inputText value="#{compromissoBean.compromisso.hrFim}" id="hrFim" styleClass="timepicker" maxlength="5"/>
+					</div>
+         	 		
+         	 		<div class="input-field col s3">
+						<h:outputLabel for="relevancia" value="Relevancia"/>
+			            <h:inputText value="#{compromissoBean.compromisso.relevancia}" id="relevancia" />
+					</div>
+					
+         	 		<div class="input-field col s3">
+						<h:outputLabel for="presenca" value="Presença"/>
+			            <h:inputText value="#{compromissoBean.compromisso.presenca}" id="presenca" />
+					</div>
+					
+					<div class="input-field col s5">
+						<h:outputLabel for="situacao" value="Situação"/>
+			            <h:inputText value="#{compromissoBean.situacao.descricao}" id="situacao" />
+					</div>
+					
+					<div class="col s1 alinhaBotao">
+						<p:commandLink action="#{compromissoBean.buscarSituacao('CPM')}" oncomplete="PF('modalSituacao').show();" 
+							update=":frmTabelaSituacao" id="addSituacao" styleClass="waves-effect waves-circle waves-light btn-floating secondary-content" 
+							process="@this frmCompromisso:situacao">
+						    <i class="material-icons">search</i>
+						</p:commandLink>
+         	 		</div>
+										
+					<div class="input-field col s12">
+						<h:outputLabel for="assunto" value="Assunto"/>
+			            <h:inputTextarea value="#{compromissoBean.compromisso.assunto}" id="assunto" styleClass="materialize-textarea"/>
+					</div>
+					
+					
+					<div class="input-field col s12">
+						<h:outputLabel for="local" value="Local"/>
+			            <h:inputText value="#{compromissoBean.compromisso.local}" id="local" />
+					</div>
+         	 		
+         	 		
+         	 		<div class="input-field col s11">
+						<h:outputLabel for="pessoa" value="Interessado"/>
+			            <h:inputText value="#{compromissoBean.interessado.nome}" id="pessoa" />
+					</div>
+					
+					<div class="col s1 alinhaBotao" >
+						<p:commandLink action="#{compromissoBean.buscarInteressado()}" oncomplete="PF('modalInteressado').show();" 
+							update=":frmTabelaInteressados" id="addInteressado" styleClass="waves-effect waves-circle waves-light btn-floating secondary-content" 
+							process="@this frmCompromisso:pessoa">
+						    <i class="material-icons">search</i>
+						</p:commandLink>
+         	 		</div>
+         	 		
+         	 		
+         	 		<div class="row" style="padding-top: 40%;">
+						<div class="input-field">					    
+							<h:commandButton class="btn waves-effect waves-light col s12 center" value="Gravar" action="#{compromissoBean.salvar()}" />
+					  	</div>
+					</div>
+					
+		    	</h:form>
+		    	
+		    	<!-- Situação Compromisso -->
+				<p:dialog header="Situação" widgetVar="modalSituacao" width="900" height="500" resizable="false">
+					<h:form id="frmTabelaSituacao">
+						<p:dataTable id="tabelaSituacao" value="#{compromissoBean.situacaoList}" var="situacao"
+							tableStyleClass="bordered highlight responsive-table" paginator="true" paginatorPosition="bottom" rows="10" >
+							
+							<p:column width="5%" />
+							
+							<p:column headerText="Descrição" >
+								<h:outputText id="nome" value="#{situacao.descricao}" style="text-align: left; margin-left: 2% "/>
+							</p:column>
+							
+							<p:column headerText="Selecionar" width="15%" style="text-align: center;">
+								<p:commandLink id="selecionar" styleClass="alterar" action="#{compromissoBean.selecionarSituacao(situacao)}" 
+									oncomplete="PF('modalSituacao').hide();" update="frmCompromisso:situacao">
+									<i class="icone material-icons" >add</i>
+								</p:commandLink>
+							</p:column>
+						</p:dataTable> 
+					</h:form>
+				</p:dialog>
+				
+				<!-- Interessados aos Evendos-->
+				<p:dialog header="Interessados" widgetVar="modalInteressado" width="900" height="500" resizable="false">
+					<h:form id="frmTabelaInteressados">
+						<p:dataTable id="tabelaInteressado" value="#{compromissoBean.interessadoList}" var="interessado"
+							tableStyleClass="bordered highlight responsive-table" paginator="true" paginatorPosition="bottom" rows="10" >
+							
+							<p:column width="5%" />
+							
+							<p:column headerText="Nome" >
+								<h:outputText id="nome" value="#{interessado.nome}" style="text-align: left; margin-left: 2% "/>
+							</p:column>
+							
+							<p:column headerText="Selecionar" width="15%" style="text-align: center;">
+								<p:commandLink id="selecionarInteressado" styleClass="alterar" action="#{compromissoBean.selecionarInteressado(interessado)}" 
+									oncomplete="PF('modalInteressado').hide();" update="frmCompromisso:pessoa">
+									<i class="icone material-icons" >add</i>
+								</p:commandLink>
+							</p:column>
+						</p:dataTable> 
+					</h:form>
+				</p:dialog>
+				
+			</div> 
+		</div>
+	</ui:define>
+</ui:composition>

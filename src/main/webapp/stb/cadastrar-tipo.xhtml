@@ -1,0 +1,68 @@
+<ui:composition 
+	template="/stb/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
+    
+    <ui:define name="conteudo">
+			
+		<div id="container" class="container">
+			<h3 class="main-title center">Cadastro de Tipos</h3>
+			<div class="row">
+		    	<h:form id="frmTipo">
+			      	<div class="section">
+						<div class="input-field col s11 ">
+				            <h:outputLabel for="descricao" value="Descrição" id="descricaoLabel" />
+				            <p:inputText value="#{tipoBean.tipo.descricao}" id="descricao" placeholder=""/>
+		         	 	</div>
+		         	 	
+		         	 	<div class="input-field col s1 ">
+				            <h:outputLabel for="sgSistema" value="Sigla sistema" id="sgSistemaLabel"/>
+				            <p:inputText value="#{tipoBean.tipo.sgSistema}" id="sgSistema" placeholder=""/>
+		         	 	</div>
+
+			      	</div>
+				      		
+					<div class="row" style="margin-top: 10rem;">
+						<div class="input-field">					    
+							<p:commandLink class="btn waves-effect waves-light col s12" value="Gravar" 
+								action="#{tipoBean.salvar()}"  process="@this" update=":frmTipo:tabelaTipos" ajax="false">
+							</p:commandLink>
+					  	</div>
+					</div>
+			
+					<h4 id="titulo" class="main-title" style="margin-bottom: 2rem; margin-top: 8rem;">Lista de Tipos de Contas</h4>
+				
+					<p:dataTable id="tabelaTipos" value="#{tipoBean.tipoList}" var="tipo"
+						tableStyleClass="bordered highlight responsive-table" paginator="true" paginatorPosition="bottom" rows="5" >
+						
+						<p:column headerText="Sigla Sistema" width="20%" style="text-align: center;">
+							<h:outputText id="sgSistemaTable" value="#{tipo.sgSistema}" />
+						</p:column>
+						
+						<p:column headerText="Descrição" >
+							<h:outputText id="descricaoTable" value="#{tipo.descricao}" style="text-align: left; margin-left: 2% "/>
+						</p:column>
+						
+						<p:column headerText="Alterar" width="10%" style="text-align: center;">
+							<p:commandLink id="alterar" styleClass="alterar" actionListener="#{tipoBean.selecionar(tipo)}" process="@this" update=":frmTipo:descricao :frmTipo:sgSistema" >
+								<i class="icone material-icons" >edit</i>
+								<p:ajax event="dialogReturn" listener="#{tipoBean.showMessage()}"  />
+							</p:commandLink>
+						</p:column>
+						
+						
+						<p:column headerText="Excluir" width="10%" style="text-align: center;">
+							<p:commandLink id="excluir" styleClass="excluir" action="#{tipoBean.excluir(tipo)}" 
+								process="@this" update=":frmTipo:tabelaTipos" ajax="false">
+								<i class="icone material-icons" >close</i>
+							</p:commandLink>
+						</p:column>
+					</p:dataTable> 
+				</h:form>
+			</div> 
+		</div>
+	</ui:define>
+</ui:composition>

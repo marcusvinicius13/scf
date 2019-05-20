@@ -1,0 +1,126 @@
+<ui:composition 
+	template="/template/menu.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+  	
+	<ui:define name="conteudo">
+		<h:head>
+	  		<script type="text/javascript" src="../resources/jQuery/jquery-3.3.1.min.js"></script>
+		</h:head>
+		
+		<div class="portal">
+			<script>
+				$(document).ready(function(){
+				    $('.tap-target').tapTarget();
+				});
+			</script>
+			
+			<div class="container">
+				<div class="row" style="padding-top: 3rem;">
+					<div class="col s12  l4 waves-effect waves-light">
+			            <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+							<h:outputLink value="../pessoa/consultar-pessoas.xhtml" id="btnPessoas" >
+				                <i class="large material-icons">perm_identity</i>
+				                <div class="truncate">Pessoas Físicas</div>
+			        		</h:outputLink>
+				        </div>
+			   	 	</div>
+					    
+		    		<div class="col s12  l4 waves-effect waves-light">
+						<div class="card-panel hoverable z-depth-1 center gray lighten-4">
+					    	<h:outputLink value="../conta/consultar-contas.xhtml" id="btnContas" >  <!-- target="about:blank" essa opção com que a aba abra em outra janela -->
+								<i class="large material-icons">money_off</i>
+								<div class="truncate">Contas</div>
+							</h:outputLink>
+					   </div>
+					</div>
+				
+		    		<div class="col s12  l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+				            <h:outputLink value="../telefonema/consultar-telefonemas.xhtml" id="btnTelefonemas">
+					            <i class="large material-icons">phone</i>
+					            <div class="truncate">Telefonemas</div>
+				            </h:outputLink>
+				        </div>
+					</div>
+				
+				    <div class="col s12  l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+				            <h:outputLink value="../compra/consultar-compras.xhtml">
+					            <i class="large material-icons">shopping_cart</i>
+					            <div class="truncate">Lista de Compras</div>
+				            </h:outputLink>
+				        </div>
+					</div>
+				
+					<div class="col s12  l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+				            <h:outputLink value="../compromisso/consultar-compromissos.xhtml">
+					            <i class="large material-icons">event_note</i>
+					            <div class="truncate">Compromissos</div>
+				            </h:outputLink>
+				        </div>
+					</div>
+					
+					<div class="col s12 l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+				            <h:outputLink value="../projeto/consultar-projetos.xhtml">
+					            <i class="large material-icons">business_center</i>
+					            <div class="truncate">Projetos</div>
+					        </h:outputLink>
+				        </div>
+					</div>
+						
+					<div class="col s12  l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+							<h:outputLink value="../financa/consultar-financas.xhtml">
+					            <i class="large material-icons">local_atm</i>
+					            <div class="truncate">Financeiro</div>
+				            </h:outputLink>
+				        </div>
+					</div>
+					
+					<!--	Esse link está direto em parlamentares porem tem que ser mudado para que possa
+						abranger tambem as comissões, proposições, etc... 
+						target="about:blank" essa opção com que a aba abra em outra janela -->
+					<div class="col s12  l4 waves-effect waves-light">
+						<div class="card-panel hoverable z-depth-1 center gray lighten-4">
+					    	<h:outputLink value="../parlamentares/consultar-parlamentares.xhtml" id="btnParlamentares">  
+								<i class="large material-icons">streetview</i>
+								<div class="truncate">Atividades Legislativas</div>
+							</h:outputLink>
+					   </div>
+					</div>
+					
+					<div class="col s12  l4 waves-effect waves-light">
+				        <div class="card-panel hoverable z-depth-1 center gray lighten-4">
+				        	<h:outputLink value="../stb/tabelas.xhtml">
+					            <i class="large material-icons">chrome_reader_mode</i>
+					            <div class="truncate">STB</div>
+				            </h:outputLink>
+				        </div>
+					</div>
+						
+				</div>
+			</div>
+				
+			<!-- Element Showed -->
+	 			<div class="fixed-action-btn">
+				<a onclick="$('.tap-target').tapTarget('open')" id="menu" 
+					class="waves-effect waves-light btn-large btn-floating cyan pulse" style="margin-bottom: 3rem;">
+					<i class="large material-icons" >notifications_paused</i>
+				</a>
+			</div>
+				
+			<!-- Tap Target Structure -->
+			<div class="tap-target cyan" data-target="menu">
+	   			<div class="tap-target-content ">
+			    	<h5>Title</h5>
+			     	<p>A bunch of text</p>
+	   			</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+

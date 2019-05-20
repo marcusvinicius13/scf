@@ -1,0 +1,59 @@
+<ui:composition 
+	template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
+    
+    
+    <ui:define name="conteudo">
+    	<div>
+			<p:commandLink id="addStatus" style="width:50px;height: 50px; margin-right:5rem;" 
+				styleClass="waves-effect waves-circle waves-light btn-floating secondary-content"	action="#{parlamentarBean.voltar()}">
+				<p:tooltip value="Voltar" for="addStatus"/>
+			    <i class="material-icons iconVoltar">keyboard_return</i>
+			</p:commandLink>
+	 	</div>
+    	<div>
+	   		<div class="container" >
+				<p:growl id="growl" showDetail="true" sticky="true" />  
+				<h3 id="titulo" class="main-title center"> Lista de Parlamentares</h3>
+				<div class="row">
+					<h:form id="frmTabela">
+						<p:dataTable id="table" value="#{parlamentarBean.parlamentaresList}" var="parlamentar" 
+							tableStyleClass="bordered centered highlight responsive-table" paginator="true" 
+							paginatorPosition="bottom" rows="10">
+							
+							<p:column width="5%" />
+							
+							<p:column headerText="Nome Civil Parlamentar" >
+								<h:outputText id="nome" value="#{parlamentar.nomeCivil}" />
+							</p:column>
+							
+							<p:column headerText="Alterar" width="5%">
+								<p:commandLink id="alterar" styleClass="alterar" action="#{parlamentarBean.selecionar(parlamentar)}" process="@this">
+									<i class="icone material-icons" >edit</i>
+									<p:ajax event="dialogReturn" listener="#{parlamentarBean.showMessage()}" update=":frmTabela"/>
+								</p:commandLink>
+							</p:column>
+							
+							<p:column headerText="Excluir" width="5%">
+								<p:commandLink id="excluir" styleClass="excluir" action="#{parlamentarBean.excluirParlamentar(parlamentar)}" 
+									process="@this" update=":frmTabela:tabelaPessoas" ajax="false">
+									<i class="icone material-icons" >close</i>
+								</p:commandLink>
+							</p:column>
+						</p:dataTable> 
+					</h:form>
+				</div>
+			</div> 
+		</div>
+	</ui:define>
+	
+	<div id="footer" class="footerListar">
+    	<ui:insert name="rodape" >
+     		<ui:include src="/template/rodape.xhtml" />
+     	</ui:insert>
+    </div>
+</ui:composition>

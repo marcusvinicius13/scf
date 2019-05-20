@@ -1,0 +1,73 @@
+<!DOCTYPE html >
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	  	<link type="text/css" rel="stylesheet" href="../scf/resources/materialize/css/materialize.css" media="screen,projection" />
+		<link type="text/css" rel="stylesheet" href="../scf/resources/materialize/css/scf.css" media="screen,projection" />
+		
+		<style>
+			html,body {
+           	 	height: 100%;
+        	}
+        
+	        html {
+	            display: table;
+	            margin: auto;
+	        }
+        
+	        body {
+	            display: table-cell;
+	            vertical-align: middle;
+	        }
+        
+	        .margin {
+	            margin: 0 !important;
+	        }
+		</style>
+		
+	</h:head>
+
+	<h:body styleClass="light-green lighten-5">
+   		<div class="container">
+	        <div class="row">
+	            <div class="col s12 m8 offset-m2">
+	                <h:form styleClass="login-form">
+	                    <div class="card">
+	                        <div class="card-image">
+	                            <img src="../scf/resources/materialize/img/headerBg.jpg" height="100px"/>
+	                            <span style="font-size: 60px; bottom: -0.2em;" class="card-title">
+	                            	Login
+	                            </span>
+	                        </div>
+	                        
+	                        <div class="card-content row">
+	                            <div class="input-field col s12">
+	                                <h:inputText value="#{loginBean.usuario.email}" styleClass="validate" id="email" type="email" />
+	                                <h:outputLabel for="email">Email</h:outputLabel>
+	                            </div>
+	                            
+                                <div class="input-field col s12">
+	                                <h:inputText value="#{loginBean.usuario.senha}" id="password" type="password" />
+	                                <h:outputLabel for="password">Senha</h:outputLabel>
+                                </div>
+	                        </div>
+	                        <div class="card-action blue-grey lighten-3">
+	                            <div class="center-align">
+	                            	<h:commandLink styleClass="btn blue-grey darken-1" value="Entrar" action="#{loginBean.logar()}">
+	                            		<i class="material-icons left">vpn_key</i>
+	                            	</h:commandLink>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </h:form>
+	            </div>
+	        </div>
+    	</div>
+    	
+    	<script type="text/javascript" src="../scf/resources/materialize/js/materialize.js"></script>
+		<script type="text/javascript" src="../scf/resources/materialize/js/config.js"></script>
+	</h:body>
+</html>

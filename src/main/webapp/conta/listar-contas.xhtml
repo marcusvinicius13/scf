@@ -1,0 +1,81 @@
+<ui:composition 
+	template="/conta/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <ui:define name="conteudo">
+		<div>
+			<p:commandLink id="addStatus" style="width:50px; height: 50px; margin-right:5rem;" 
+				styleClass="waves-effect waves-circle waves-light btn-floating secondary-content" action="#{contaBean.voltar()}">
+				<p:tooltip value="Voltar" for="addStatus"/>
+			    <i class="material-icons iconVoltar">keyboard_return</i>
+			</p:commandLink>
+	 	</div>
+	 	
+	   	<div class="container">
+			<h3 class="main-title center titulo">Lista de Contas</h3>
+			<div class="row">
+				<h:form id="frmLista">
+					<p:dataTable id="table" tableStyleClass="bordered centered highlight responsive-table" paginator="true" 
+						paginatorPosition="bottom" value="#{contaBean.contaList}" var="conta" rows="10" >
+						
+						<p:column headerText="Conta" width="10%">
+							<h:outputText id="tipo" value="#{conta.tipo.descricao}" style="height: 10%"/>
+						</p:column> 
+						
+						<p:column headerText="Número" width="6%">
+							<h:outputText id="numeroConta" value="#" />
+						</p:column>
+						
+						<p:column headerText="Vencimento" width="10%">
+							<h:outputText id="dtVencimento" value="#{conta.dtVencimentoConta}" />
+						</p:column>
+						
+						<p:column headerText="Titular" width="20%">
+							<h:outputText id="titular" value="#{conta.titular.nome}" />
+						</p:column>
+						
+						<p:column headerText="Descriçao">
+							<h:outputText id="descricao" value="#{conta.descricao}" />
+						</p:column>
+						
+						<p:column headerText="Valor" width="6%">
+							<h:outputText id="valor" value="#{conta.valorConta}" />
+						</p:column>
+						
+						<p:column headerText="Status" width="10%">
+							<h:outputText id="status" value="#{conta.status.descricao}" />
+						</p:column>
+						
+						<!-- Icones de ações da listagem -->
+						
+						<p:column headerText="Pagar" width="5%">
+							<p:commandLink>
+								<i class="icone material-icons" >money_off</i>
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Alterar" width="5%">
+							<p:commandLink id="alterar" styleClass="alterar" action="#{contaBean.selecionar(conta)}">
+								<i class="icone material-icons" >edit</i>
+								<p:ajax event="dialogReturn" listener="#{contaBean.showMessage()}" update=":frmLista:table"/>
+								
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Excluir" width="5%">
+							<p:commandLink styleClass="excluir" action="#{contaBean.excluir(conta)}" update=":frmLista:table">
+								<i class="icone material-icons" >close</i>
+							</p:commandLink>
+						</p:column>
+						
+					</p:dataTable> 
+				</h:form>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>

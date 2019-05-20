@@ -1,0 +1,111 @@
+<ui:composition 
+	template="/compra/menu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <ui:define name="conteudo">
+	   	<div>
+			<p:commandLink id="addStatus" style="width:50px; height: 50px; margin-right:5rem;" 
+				styleClass="waves-effect waves-circle waves-light btn-floating secondary-content" action="#{compraBean.voltar()}">
+				<p:tooltip value="Voltar" for="addStatus"/>
+			    <i class="material-icons iconVoltar">keyboard_return</i>
+			</p:commandLink>
+	 	</div>
+	   	
+	   	<div class="container">
+	   		<p:graphicImage name="excel.png" width="240" />
+			<h3 class="main-title center titulo">Lista de Compras</h3>
+			<div class="row">
+				<h:form id="frmLista">
+					<p:dataTable id="table" tableStyleClass="bordered centered highlight responsive-table" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+						paginatorPosition="bottom" value="#{compraBean.compraList}" var="compra" rows="10" >
+						
+						
+						<f:facet name="{Exporters}">
+				            <div style="float:right; padding-top: 5px;">
+				               
+				             	<h:commandLink immediate="true" style="float:right;">
+					        		<p:graphicImage id="pdf" value="/resources/img/pdf.png" height="25" width="30" />
+					        		<p:dataExporter encoding="windows-1252" target=":frmLista:table" type="pdf" fileName="Compras" />
+					        	</h:commandLink>
+					        	<p:tooltip for="pdf" value="PDF" />
+					        	
+					        	<h:commandLink immediate="true">
+					        		<p:graphicImage id="excel" value="/resources/img/excel.png" height="25" width="30" />
+					        		<p:dataExporter encoding="windows-1252" target=":frmLista:table" type="xls" fileName="Compras" />
+					        	</h:commandLink>
+					        	<p:tooltip for="excel" value="Excel" />
+				 
+				                <h:commandLink immediate="true">
+				                    <p:graphicImage id="csv" value="/resources/img/csv.png" width="24"/>
+				                    <p:dataExporter encoding="windows-1252" target=":frmLista:table" type="csv" fileName="Compras" />
+				                </h:commandLink>
+				 				<p:tooltip for="csv" value="CSV" />
+				               
+				                <h:commandLink immediate="true">
+				                    <p:graphicImage id="xml" value="/resources/img/xml.png" width="24"/>
+				                    <p:dataExporter encoding="windows-1252" target=":frmLista:table" type="xml" fileName="Compras" />
+				                </h:commandLink>
+				                <p:tooltip for="xml" value="XML" />
+				            </div>
+				        </f:facet>
+						
+						<p:column headerText="Local da Compra" width="10%">
+							<h:outputText id="local" value="#{compra.localDeCompra}" style="height: 10%"/>
+						</p:column>
+						
+						<p:column headerText="Dt. Compra" width="10%">
+							<h:outputText id="dtCompra" value="#{compra.dtCompra}" style="height: 10%"/>
+						</p:column> 
+						
+						<p:column headerText="Tipo de Compra" width="10%">
+							<h:outputText id="tipo" value="#{compra.tipo.descricao}" style="height: 10%"/>
+						</p:column>
+						
+						<p:column headerText="Produtos">
+							<p:dataTable id="table" tableStyleClass="bordered centered highlight responsive-table" 
+								paginatorPosition="bottom" value="#{compra.produtoList}" var="produto" paginator="true" rows="1">
+								
+								<p:column headerText="Itens" width="10%">
+									<h:outputText id="nomeProduto" value="#{produto.nome}" style="height: 10%"/>
+								</p:column>
+								
+								<p:column headerText="Dt. Vencimento" width="10%">
+									<h:outputText id="vencimento" value="#{produto.dtVencimento}" style="height: 10%"/>
+								</p:column>
+								
+								<p:column headerText="Quantidade" width="10%">
+									<h:outputText id="quantidade" value="#{produto.quantidade}" style="height: 10%"/>
+								</p:column>
+							</p:dataTable>
+						</p:column>
+						
+						<p:column headerText="Situação da Compra" width="10%">
+							<h:outputText id="situacaoCompra" value="#{compra.situacao.descricao}" style="height: 10%"/>
+						</p:column>
+						
+						<p:column headerText="Alterar" width="5%">
+							<p:commandLink id="alterar" styleClass="alterar" action="#{compraBean.selecionar(compra)}">
+								<i class="icone material-icons" >edit</i>
+								<p:ajax event="dialogReturn" listener="#{compraBean.showMessage()}" update=":frmLista:table"/>
+								
+							</p:commandLink>
+						</p:column>
+						
+						<p:column headerText="Excluir" width="5%">
+							<p:commandLink styleClass="excluir" action="#{compraBean.excluir(compra)}" update=":frmLista:table">
+								<i class="icone material-icons" >close</i>
+							</p:commandLink>
+						</p:column>
+						
+					</p:dataTable> 
+				</h:form>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>
